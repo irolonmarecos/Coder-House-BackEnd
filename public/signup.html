@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="form-register chat" width =500px>
+        <h1 class="msj">Registro de Usuarios</h1>
+<!--         <form action="/" method="post">
+            <input class="controls fr2" type="text" name="usuario" id="usuario" placeholder="Ingrese su Nombre de Usuario" required>
+            <input class="controls fr2" type="password" name="password" id="usuario" placeholder="Ingrese su Nombre de Contraseña" required>
+            <input class="botons btnmsj" type="submit" value="Ingresar">
+            <input class="botons btnNew" type="submit" value="Registrarse">
+        </form> -->
+        <form action="/signup" method="POST">
+            
+            <br><label for="email" class="signup">NUEVO NOMBRE DE USUARIO</label>
+            <input class="controls fr2" type="text" name="username" id="username" placeholder="Ingrese su Nuevo Nombre de Usuario" required>
+            
+            <br><label for="password" class="signup">CONTRASEÑA</label>
+            <input class="controls fr2" type="password" name="password" id="password" placeholder="Ingrese su Contraseña" required>
+            
+            <br><label for="confirmPassword" class="signup">CONFIRME SU CONTRASEÑA</label>
+            <input class="controls fr2" type="password" name="confirmPassword" id="usuario" placeholder="Repita la Contraseña" required>
+            
+            <br><label for="nombre" class="signup">INGRESE SU NOMBRE</label>
+            <input class="controls fr2" type="nombre" name="nombre" id="nombre" placeholder="Ingrese su Nombre" required>
+
+            <br><label for="edad" class="signup">INGRESE SU EDAD</label>
+            <input class="controls fr2" type="edad" name="edad" id="edad" placeholder="Ingrese su Edad" required>
+            
+            <br><label for="direccion" class="signup">INGRESE SU DIRECCION</label>
+            <input class="controls fr2" type="direccion" name="direccion" id="direccion" placeholder="Ingrese su direccion" required>
+            
+            <br><label for="telefono" class="signup">INGRESE SU NUMERO DE TELEFONO</label>
+            <input class="controls fr2" type="telefono" name="telefono" id="telefono" placeholder="Ingrese su numero de Telefono" required>
+
+            <br><label for="avatar" class="signup">INGRESE UNA FOTO PARA SU AVATAR</label>
+            <input class="controls fr2" type="avatar" name="avatar" id="avatar" placeholder="Ingrese su foto para su Avatar" required>
+
+            <input class="botons btnNew" type="submit" value="Registrarse">
+        </form>
+        <button class="botons btnmsj" onclick="btnAtras()">Atras</button>
+
+    </div>
+
+</body>
+<script src="./js/main.js"></script>
+</html>

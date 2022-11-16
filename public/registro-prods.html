@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Productos</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="form-register">
+
+        <h1>Formulario Registro de Productos</h1>
+        
+        <form action="/registro" method="POST">
+            <input class="controls f1" type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del producto">
+            <input class="controls f1" type="text" name="descripcion" id="descripcion" placeholder="Ingrese una descripcion del producto">
+            <input class="controls f1" type="number" name="precio" id="precio" placeholder="Ingrese el precio" >
+            <input class="controls f1" type="number" name="stock" id="stock" placeholder="Ingrese el Stock">
+            <input class="controls f1" type="text" name="url" id="Img" placeholder="Ingrese la URL de la imagen">
+            <input class="botons " type="submit" value="Registrarse">
+        </form>
+
+        <div class="div-prod">
+            <a href="/" class="princ botons atras"> VOLVER</a>
+        </div>
+    
+      </div>
+
+      <div id="listado-prods"></div>
+</body>
+</html>
