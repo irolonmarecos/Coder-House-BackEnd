@@ -128,3 +128,8 @@
 {"level":"info","message":"El Usuario a cerrado sesion"}
 {"level":"info","message":"El Usuario a cerrado sesion"}
 {"level":"warn","message":"Ruta no encontrada /dhsdhsdf"}
+{"level":"warn","message":"Ruta no encontrada /favicon.ico"}
+{"level":"info","message":"Usuario o contraseña Incorrectos"}
+{"level":"warn","message":"Ruta no encontrada /favicon.ico"}
+{"level":"info","message":"El Usuario a cerrado sesion"}
+{"level":"info","message":"El Usuario a cerrado sesion"}

@@ -1,7 +1,11 @@
 const express = require('express');
 
-const {Server:SocketServer} = require('socket.io')
-const {Server:HTTPServer} = require('http');
+const {
+    Server: SocketServer
+} = require('socket.io')
+const {
+    Server: HTTPServer
+} = require('http');
 
 const app = express();
 const events = require('./src/public/js/sockets_events');
@@ -11,35 +15,43 @@ const passport = require('passport');
 const path = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+const mongoOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}
 
-const { 
+const {
     envioMail,
     enviarOrden
 } = require('./src/Utils/nodeMailer')
 
 const {
-objeto,
-baseDatos
+    objeto,
+    baseDatos
 } = require('./config')
 
 const {
-paginaInicioSesion,
-paginaInicio,
-rutaDesconocida
+    paginaInicioSesion,
+    paginaInicio,
+    rutaDesconocida
 } = require('./src/controllers/inicio')
 
-const hbs = require('./src/public/views/config/hbs')  
-const {mensaje} = require('./src/schema/mensajes')
+const hbs = require('./src/views/config/hbs')
+const {
+    mensaje
+} = require('./src/schema/mensajes')
 const MensajeMongo = require('./src/DAOs/mensajes')
 const nvoMsj = new MensajeMongo
 const connection = require('./src/dataBase');
-const connectionPassport = require('./src/passport/index')
-const { loggerDev, loggerProd} =  require('./logger_config')
+const connectionPassport = require('./src/middleware/passport/index')
+const {
+    loggerDev,
+    loggerProd
+} = require('./logger_config')
 const NODE_ENV = process.env.NODE_ENV || "development";
-const logger = NODE_ENV === "production"
-? loggerDev
-: loggerProd
+const logger = NODE_ENV === "production" ?
+    loggerDev :
+    loggerProd
 
 //  RUTAS
 
@@ -56,7 +68,9 @@ connectionPassport()
 
 app.use(express.static(path.join(__dirname, '/src/public')));
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use(session({
     store: MongoStore.create({
         mongoUrl: baseDatos,
@@ -72,7 +86,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', './src/public/views');
+app.set('views', './src/views');
 
 //RUTAS
 app.use('/registro', routerNuevoProd)
@@ -84,15 +98,15 @@ app.use('/logout', routerLogout)
 
 //PAGINA INICIO
 app.get("/", paginaInicioSesion);
-app.post("/",  paginaInicio)
+app.post("/", paginaInicio)
 app.get('/*', rutaDesconocida)
 
 //const chat = require('./src/controllers/chat')
 
-socketServer.on('connection', async(socket)=>{
+socketServer.on('connection', async (socket) => {
     const totalMensajes = await nvoMsj.getAll();
     socketServer.emit(events.TOTAL_MENSAJES, totalMensajes)
-    socket.on(events.ENVIAR_MENSAJE, async(msg)=>{
+    socket.on(events.ENVIAR_MENSAJE, async (msg) => {
         const MENSAJE = new mensaje(msg)
         const result = await nvoMsj.save(MENSAJE)
         socketServer.sockets.emit(events.NUEVO_MENSAJE, msg)
@@ -101,10 +115,10 @@ socketServer.on('connection', async(socket)=>{
     socketServer.sockets.emit('porcentaje', totalMensajes, pesoNormMsjs)
 })
 
-const server= httpServer.listen(objeto.p, ()=>{
+const server = httpServer.listen(objeto.p, () => {
     console.log(`El servidor se esta ejecutando en el puerto ${objeto.p}, proceso: ${process.pid}`);
 })
 
-server.on('error',(err)=>{
-    logger.log('warn',`Error al iniciar el servidor ${err}`)
+server.on('error', (err) => {
+    logger.log('warn', `Error al iniciar el servidor ${err}`)
 })
