@@ -41,7 +41,8 @@ const {
     mensaje
 } = require('./src/schema/mensajes')
 const MensajeMongo = require('./src/DAOs/mensajes')
-const nvoMsj = new MensajeMongo
+const factory = require('./src/DAOs/factory')
+const msjDAO = factory.mensajesDAO()
 const connection = require('./src/dataBase');
 const connectionPassport = require('./src/middleware/passport/index')
 const {
@@ -104,11 +105,11 @@ app.get('/*', rutaDesconocida)
 //const chat = require('./src/controllers/chat')
 
 socketServer.on('connection', async (socket) => {
-    const totalMensajes = await nvoMsj.getAll();
+    const totalMensajes = await msjDAO.getAll();
     socketServer.emit(events.TOTAL_MENSAJES, totalMensajes)
     socket.on(events.ENVIAR_MENSAJE, async (msg) => {
         const MENSAJE = new mensaje(msg)
-        const result = await nvoMsj.save(MENSAJE)
+        const result = await msjDAO.save(MENSAJE)
         socketServer.sockets.emit(events.NUEVO_MENSAJE, msg)
     })
     const pesoNormMsjs = JSON.stringify(totalMensajes).length / 1024

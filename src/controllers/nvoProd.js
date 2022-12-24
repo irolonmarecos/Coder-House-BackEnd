@@ -1,5 +1,7 @@
 const path = require('path')
-const ProductoMongo = require('../DAOs/productos');
+const factory = require('../DAOs/factory')
+const prodsDAO = factory.productosDAO()
+const {producto} = require('../schema/productos')
 const { loggerDev, loggerProd} =  require('../../logger_config')
 const NODE_ENV = process.env.NODE_ENV || "development";
 const logger = NODE_ENV === "production"
@@ -21,7 +23,7 @@ async function postNvoProd (req,res){
     const stock = req.body.stock;
     const url = req.body.url;
     const prod = new producto({nombre,descripcion,precio,stock,url})
-    const result = await nvoProd.save(prod)
+    const result = await prodsDAO.save(prod)
     logger.log("info", `Producto creado satisfactoriamente`)
 }
 

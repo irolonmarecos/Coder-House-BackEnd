@@ -8,7 +8,7 @@ const userSchema = new Schema({
     direccion: {type:String},
     telefono: {type:Number},
     avatar: {type:String},
-    carrito: [{type:Object}]
+    carrito: {type:Array, default: []}
 
 })
 const  Users = mongoose.model('User', userSchema)

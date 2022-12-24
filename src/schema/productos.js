@@ -6,7 +6,7 @@ const ProductSchema = new Schema({
     descripcion: {type: String, require:true},
     precio: {type: Number, require:true},
     foto: {type: String, require:true},
-    
+    url: {type: String, require:true}
 },{timestamps:true});
 
 const producto = model ('producto', ProductSchema);
