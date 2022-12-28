@@ -7,13 +7,26 @@ const mensaje = new schema.Entity("mensajes", {
 },{idAttribute:"_id"})
 
 
+
 const normalizr = (info)=>{
+    let data;
+    let msjs;
     let totalMensajes = info.map(msg => {
-        //console.log(msg._doc);
-        return {...msg._doc, _id: msg.author.id}
+        if(msg._doc.author){
+            msjs = {...msg._doc, _id: msg._doc.author.id }
+            return msjs
+        } else {
+            data = info
+            return info
+        }
     })
-    const normalizar = normalize(totalMensajes, [mensaje])
-    return normalizar
+    if(data){
+        return info
+    }else if(msjs){
+        const normalizar = normalize(totalMensajes, [mensaje])
+        return normalizar
+    }
+
 
 }
 

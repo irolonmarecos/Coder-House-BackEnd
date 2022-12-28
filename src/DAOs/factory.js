@@ -1,10 +1,11 @@
-require('dotenv').config()
+require('dotenv').config({path:'../../.env'})
 
 const DATABASE_TYPE = process.env.DATABASE_TYPE
 const ProductoMongo = require('./productos')
 const MensajeMongo = require('./mensajes');
 const { mongo } = require('mongoose');
 
+console.log(DATABASE_TYPE);
 let prodsDAO ;
 let msjDAO;
 class DAOsFactory {
@@ -12,6 +13,7 @@ class DAOsFactory {
         switch(DATABASE_TYPE){
             case "MONGO":
                 prodsDAO = new ProductoMongo
+                return prodsDAO
                 break
             case "FIREBASE":
                 //prodsDAO = new ProductoFirebase
@@ -23,6 +25,7 @@ class DAOsFactory {
         switch (DATABASE_TYPE){
             case "MONGO":
                 msjDAO = new MensajeMongo
+                return msjDAO
                 break
             
             case "FIREBASE":

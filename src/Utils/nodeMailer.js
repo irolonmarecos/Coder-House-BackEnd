@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path:'../../.env'})
 const nodemailer = require('nodemailer')
 const EMAIL = process.env.EMAIL
 const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD
