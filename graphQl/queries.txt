@@ -1,0 +1,36 @@
+#mutation{
+  
+#  createProducto(datos:{
+#    id:"",
+#    nombre:"pruebas"
+#    descripcion:"Bebida",
+#    precio:150,
+#    stock:50,
+#    url:"dasñlkfsñdlfkas"
+#  }){
+#    id,nombre,descripcion,precio,stock,url
+#  }
+#  
+#  updateProducto(id:"dd60688ded5aa871c55e",datos:{
+#    id:"",
+#   nombre:"cambio de nombre",
+#    descripcion:"aaaa"
+##  }){
+#    nombre
+#  }
+#  
+#  deleteProducto(id:"dd60688ded5aa871c55e"){
+#      id,nombre,descripcion,precio,stock,url
+#  }
+
+  
+  
+#}
+#
+#query{
+#  
+#	getProducto(id:"dd60688ded5aa871c55e") {
+#     id,nombre,descripcion,precio,stock,url
+#   }
+ # getProductos{id,nombre,descripcion,precio,stock,url}
+#}

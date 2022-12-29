@@ -7,6 +7,17 @@ const {
     Server: HTTPServer
 } = require('http');
 
+const { graphqlHTTP } = require('express-graphql')
+const schema = require('./graphQl/productos')
+const {
+    getProducto,
+    getProductos,
+    createProducto,
+    updateProducto,
+    deleteProducto
+} = require('./src/Utils/productos-graphQl')
+
+
 const app = express();
 const events = require('./src/public/js/sockets_events');
 const httpServer = new HTTPServer(app);
@@ -96,6 +107,19 @@ app.use('/test/productos', routerProductos)
 app.use('/login', routerLogin)
 app.use('/signup', routerSignup)
 app.use('/logout', routerLogout)
+app.use("/graphql", graphqlHTTP({
+    schema,
+    rootValue: {
+        getProducto,
+        getProductos,
+        createProducto,
+        updateProducto,
+        deleteProducto
+    },
+    graphiql: true,
+}));
+
+
 
 //PAGINA INICIO
 app.get("/", paginaInicioSesion);

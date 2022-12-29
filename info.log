@@ -38,3 +38,4 @@
 {"level":"info","message":"Producto creado satisfactoriamente"}
 {"level":"info","message":"Producto creado satisfactoriamente"}
 {"level":"info","message":"Producto creado satisfactoriamente"}
+{"level":"warn","message":"Ruta no encontrada /favicon.ico"}
