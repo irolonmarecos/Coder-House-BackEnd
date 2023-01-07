@@ -113,3 +113,14 @@
 {"level":"warn","message":"Ruta no encontrada /favicon.ico"}
 {"level":"warn","message":"Ruta no encontrada /favicon.ico"}
 {"level":"warn","message":"Ruta no encontrada /favicon.ico"}
+{"level":"warn","message":"Ruta no encontrada /favicon.ico"}
+{"level":"warn","message":"Ruta no encontrada /productos"}
+{"level":"warn","message":"Ruta no encontrada /registro"}
+{"level":"warn","message":"Ruta no encontrada /registro"}
+{"level":"warn","message":"Error al iniciar el servidor Error: listen EADDRINUSE: address already in use :::8080"}
+{"level":"warn","message":"Ruta no encontrada /singup"}
+{"level":"warn","message":"Ruta no encontrada /favicon.ico"}
+{"level":"warn","message":"Ruta no encontrada /orden"}
+{"level":"warn","message":"Ruta no encontrada /orden"}
+{"level":"warn","message":"Ruta no encontrada /orden"}
+{"level":"warn","message":"Ruta no encontrada /orden"}

@@ -3,11 +3,14 @@ require('dotenv').config({path:'../../.env'})
 const DATABASE_TYPE = process.env.DATABASE_TYPE
 const ProductoMongo = require('./productos')
 const MensajeMongo = require('./mensajes');
-const { mongo } = require('mongoose');
+const CarritoMongo = require('./carrito')
+const UsuarioMongo = require('./user')
 
 console.log(DATABASE_TYPE);
 let prodsDAO ;
 let msjDAO;
+let carritoDAO;
+let userDAO;
 class DAOsFactory {
     static productosDAO(){
         switch(DATABASE_TYPE){
@@ -33,6 +36,31 @@ class DAOsFactory {
                 break
         }
     }
+    static carritDAO (){
+        switch (DATABASE_TYPE){
+            case "MONGO":
+                carritoDAO = new CarritoMongo
+                return carritoDAO
+                break
+                
+            case "FIREBASE":
+                //carritoDAO = new CarritoMongo
+                break
+        }
+    }
+    static usuarioDAO (){
+        switch (DATABASE_TYPE){
+            case "MONGO":
+                userDAO = new UsuarioMongo
+                return userDAO
+                break
+                
+            case "FIREBASE":
+                //carritoDAO = new CarritoMongo
+                break
+        }
+    }
+
 }
 
 //const prueba1 = DAOsFactory

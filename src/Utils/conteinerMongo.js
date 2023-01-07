@@ -12,10 +12,35 @@ class AlmacenMongo{
             console.log(err);
         }
     }
+
+    async getByCategoria(descripcion){
+        try{
+            const getAll = await this.ruta.find({descripcion:descripcion});
+            return normalizr(getAll);
+        }catch(err){
+            console.log(err);
+        }
+    }
     async getById (id){
         try{
             const getById = await this.ruta.findOne({_id: id});
             return getById;
+        } catch(err){
+            console.log(err);
+        }
+    }
+    async getByName (name){
+        try{
+            const getByName = await this.ruta.findOne({nombre: name});
+            return getByName;
+        } catch(err){
+            console.log(err);
+        }
+    }
+    async getByUser (name){
+        try{
+            const getByName = await this.ruta.findOne({usuario: name});
+            return getByName;
         } catch(err){
             console.log(err);
         }

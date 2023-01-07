@@ -10,7 +10,8 @@ const logger = NODE_ENV === "production"
     ? loggerDev
     : loggerProd
 
-async function paginaNvoProd (req,res) {
+async function getAllProductos (req,res) {
+    console.log(req.session.user.carrito);
     const listaProductos = await prodsDAO.getAll()
     //res.sendFile(path.join(__dirname, '../', 'public','registro-prods.html'))
     res.send(listaProductos)
@@ -18,14 +19,15 @@ async function paginaNvoProd (req,res) {
 
 async function postNvoProd (req,res){
     const nombre = req.body.nombre;
-    const descripcion = req.body.descripcion;
+    const categoria = req.body.categoria;
     const precio = req.body.precio;
     const stock = req.body.stock;
     const url = req.body.url;
-    const prod = new producto({nombre,descripcion,precio,stock,url})
+    const prod = new producto({nombre,categoria,precio,stock,url})
     const result = await prodsDAO.save(prod)
     console.log(result);
     logger.log("info", `Producto creado satisfactoriamente`)
+    res.sendFile(path.join(__dirname, '../', 'public','registro-prods.html'))
 }
 
 async function getProdId (req,res){
@@ -62,4 +64,11 @@ async function deleteProducto (req,res) {
 } 
 
 
-module.exports = {paginaNvoProd,postNvoProd,getProdId,modificarProd,deleteProducto}
+async function getCategoria (req,res){
+    const categoria = req.params.categoria
+    const prod = await prodsDAO.getByCategoria(categoria)
+    console.log(prod);
+    res.send(prod)
+}
+
+module.exports = {getAllProductos,postNvoProd,getProdId,modificarProd,deleteProducto, getCategoria}

@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../../schema/user')
+const {Users} = require('../../schema/user')
+
 const {
     hashPassword,
     comparePassword
@@ -8,7 +9,7 @@ const {
 const {
     Types
 } = require('mongoose')
-const Usuario = require('../../schema/user');
+
 
 const {
     loggerDev,
@@ -24,7 +25,8 @@ const logger = NODE_ENV === "production" ?
 async function connectionPassport() {
     passport.use('login', new LocalStrategy(async (username, password, done) => {
         try {
-            const user = await Usuario.findOne({
+
+            const user = await Users.findOne({
                 username
             })
             if (!user || !comparePassword(user, password)) {
@@ -43,9 +45,12 @@ async function connectionPassport() {
 
 
     passport.use('signup', new LocalStrategy({
-        passReqToCallback: true
+        passReqToCallback: true,
+        usernameField: 'username',
+        passwordField: 'password'
     }, async (req, username, password, done) => {
-        const user = await Usuario.findOne({
+        console.log(Users);
+        const user = await Users.findOne({
             username
         })
         const confirmPass = req.body.confirmPassword
@@ -58,14 +63,21 @@ async function connectionPassport() {
                 mensaje: ' Contraseña no Coincide'
             })
         }
-        const hashedPassword = hashPassword(password);
-        const newUser = new User({
+        const hashedPassword = hashPassword(password); 
+        const {email,edad,direccion,telefono,avatar} = req.body
+        console.log(email,edad,direccion,telefono,avatar);
+        const newUser = new Users({
             username,
-            password: hashedPassword
+            password: hashedPassword,
+            email,
+            edad,
+            direccion,  
+            telefono,
+            avatar
         });
         console.log(newUser);
         await newUser.save();
-        return done(null, newUser);
+        return done(null, newUser); 
     }))
 
     passport.serializeUser((user, done) => {
@@ -74,7 +86,7 @@ async function connectionPassport() {
 
     passport.deserializeUser(async (id, done) => {
         id = Types.ObjectId(id);
-        const user = await User.findOne(id)
+        const user = await Users.findOne(id)
         done(null, user)
     })
 }

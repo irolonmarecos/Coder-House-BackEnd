@@ -7,17 +7,6 @@ const {
     Server: HTTPServer
 } = require('http');
 
-const { graphqlHTTP } = require('express-graphql')
-const schema = require('./graphQl/productos')
-const {
-    getProducto,
-    getProductos,
-    createProducto,
-    updateProducto,
-    deleteProducto
-} = require('./src/Utils/productos-graphQl')
-
-
 const app = express();
 const events = require('./src/public/js/sockets_events');
 const httpServer = new HTTPServer(app);
@@ -67,13 +56,12 @@ const logger = NODE_ENV === "production" ?
 
 //  RUTAS
 
-const routerNuevoProd = require('./src/routes/registroProductos')
-const routerProductos = require('./src/routes/productos-test')
-const routerInfo = require('./src/routes/info')
+const routerProductos = require('./src/routes/Productos')
 const routerLogin = require('./src/routes/login')
 const routerSignup = require('./src/routes/signup')
 const routerLogout = require('./src/routes/logout')
-//const routerNumRandoms = require('./routes/randoms')
+const routerCarrito = require('./src/routes/carrito')
+const routerOrden = require('./src/routes/orden')
 
 connection()
 connectionPassport()
@@ -101,24 +89,12 @@ app.set('view engine', 'hbs');
 app.set('views', './src/views');
 
 //RUTAS
-app.use('/registro', routerNuevoProd)
-app.use('/test/info', routerInfo)
-app.use('/test/productos', routerProductos)
+app.use('/orden', routerOrden)
+app.use('/productos', routerProductos)
+app.use('/carrito', routerCarrito)
 app.use('/login', routerLogin)
 app.use('/signup', routerSignup)
 app.use('/logout', routerLogout)
-app.use("/graphql", graphqlHTTP({
-    schema,
-    rootValue: {
-        getProducto,
-        getProductos,
-        createProducto,
-        updateProducto,
-        deleteProducto
-    },
-    graphiql: true,
-}));
-
 
 
 //PAGINA INICIO
@@ -126,7 +102,6 @@ app.get("/", paginaInicioSesion);
 app.post("/", paginaInicio)
 app.get('/*', rutaDesconocida)
 
-//const chat = require('./src/controllers/chat')
 
 socketServer.on('connection', async (socket) => {
     const totalMensajes = await msjDAO.getAll();
