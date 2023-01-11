@@ -42,3 +42,6 @@
 {"level":"info","message":"Usuario o contraseña Incorrectos"}
 {"level":"info","message":"El Usuario a cerrado sesion"}
 {"level":"info","message":"El Usuario a cerrado sesion"}
+{"level":"info","message":"Producto creado satisfactoriamente"}
+{"level":"info","message":"Producto creado satisfactoriamente"}
+{"level":"info","message":"Correo de orden enviado satisfactoriamente"}

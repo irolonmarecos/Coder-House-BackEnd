@@ -13,7 +13,6 @@ const logger = NODE_ENV === "production"
 async function getAllProductos (req,res) {
     try{
         const listaProductos = await prodsDAO.getAll()
-        //res.sendFile(path.join(__dirname, '../', 'public','registro-prods.html'))
         res.send(listaProductos)
     }catch(err){
         logger.log("warn", `ERROR AL MOSTRAR EL CARRITO : ${err}`)
@@ -31,11 +30,10 @@ async function postNvoProd (req,res){
         const prod = new producto({nombre,categoria,precio,stock,url})
         const result = await prodsDAO.save(prod)
         logger.log("info", `Producto creado satisfactoriamente`)
-        res.sendFile(path.join(__dirname, '../', 'public','registro-prods.html'))
+        res.send(`El producto ${result}, se ha registrado satisfactoriamente`)
     }catch(err){
         logger.log("warn", `ERROR AL CREAR EL PRODUCTO: ${err}`)
     }
-
 }
 
 async function getProdId (req,res){

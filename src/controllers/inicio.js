@@ -10,11 +10,9 @@ const logger = NODE_ENV === "production" ?
 function paginaInicioSesion(req, res) {
     const usuario = req.session.user
     if (!usuario) {
-        res.redirect('/login')
+        res.send('Debe iniciar sesion')
     } else {
-        res.render('main', {
-            usuario: usuario
-        })
+        res.redirect('/productos')
     }
 }
 
@@ -22,7 +20,7 @@ function paginaInicio(req, res) {
     let usuario = req.body.usuario;
     req.session.usuario = usuario
     if (usuario) {
-        res.redirect('/login')
+        res.send('Debe iniciar sesion')
     }
 }
 
