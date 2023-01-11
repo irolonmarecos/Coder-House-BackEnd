@@ -15,7 +15,7 @@ function agregarMsj(msg) {
     //console.log(msg);
     document.getElementById("msj-chat").innerHTML += `
         <div>
-          <b class="infoMail" style="color: black">${msg.author.id}:</b> 
+          <b class="infoMail" style="color: black">${msg.email}:</b> 
           <b class="infoMail" style="color: rgb(76, 216, 118)">${msg.author.nombre}:</b> 
           <b class="infoMsj" style="color: black">${msg.text}</b> 
           </hr>
@@ -43,6 +43,9 @@ socket.on("porcentaje", (msj, pesoNorm )=>{
     let porcentajeFianl = porcentaje.toFixed(2)
     return compresion(porcentajeFianl)
 })
+socket.on('prueba',(msj)=>{
+    return msj
+})
 
 function compresion (porc) {
         document.getElementById('compresion').innerHTML+= `
@@ -53,15 +56,15 @@ function compresion (porc) {
 function enviarMensaje(){
     const nombre = document.getElementById('nombre').value;
     const apellido = document.getElementById('apellido').value;
-    const edad = document.getElementById('edad').value;
+    const edad = document.getElementById('edad').value; 
     const alias = document.getElementById('alias').value;
     const avatar = document.getElementById('avatar').value;
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('email').value; 
     const text = document.getElementById('text').value;
 
     const mensaje = {
+        email: email,
         author: {
-            id:email,
             nombre:nombre,
             apellido: apellido,
             edad: edad,

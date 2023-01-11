@@ -6,7 +6,6 @@ const MensajeMongo = require('./mensajes');
 const CarritoMongo = require('./carrito')
 const UsuarioMongo = require('./user')
 
-console.log(DATABASE_TYPE);
 let prodsDAO ;
 let msjDAO;
 let carritoDAO;

@@ -29,6 +29,14 @@ class AlmacenMongo{
             console.log(err);
         }
     }
+    async getByEmail (email){
+        try{
+            const getById = await this.ruta.find({email: email});
+            return getById;
+        } catch(err){
+            console.log(err);
+        }
+    }
     async getByName (name){
         try{
             const getByName = await this.ruta.findOne({nombre: name});

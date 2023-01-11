@@ -1,6 +1,14 @@
 const factory = require('../DAOs/factory')
 const carritoDAO = factory.carritDAO()
 const usuarioDAO = factory.usuarioDAO()
+const {enviarOrden} = require('../Utils/nodeMailer')
+
+const { loggerDev, loggerProd} =  require('../Utils/logger_config')
+const NODE_ENV = process.env.NODE_ENV || "development";
+const logger = NODE_ENV === "production"
+    ? loggerDev
+    : loggerProd
+
 
 async function getOrden (req,res) {
     try{
@@ -22,7 +30,7 @@ async function postOrden (req,res) {
         user.ordenes_compra.push(carrito)
         const ActualizarUser = await usuarioDAO.updateById(userID, user)
         const ActualizarCarrito = await carritoDAO.deleteById(carrID)
-    
+        await enviarOrden(carrito)
         res.send('SE HA GENERADO LA ORDEN DE COMPRA EXITOSAMENTE') 
     }catch(err){
         logger.log("warn", `ERROR AL GENERAR LA ORDEN DEL PEDIDO : ${err}`)     

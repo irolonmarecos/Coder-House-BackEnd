@@ -1,9 +1,10 @@
-require('dotenv').config({path:'../../.env'})
+require('dotenv').config('../../.env')
 const nodemailer = require('nodemailer')
+
 const EMAIL = process.env.EMAIL
 const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD
 
-const { loggerDev, loggerProd} =  require('../../logger_config')
+const { loggerDev, loggerProd} =  require('./logger_config')
 const NODE_ENV = process.env.NODE_ENV || "development";
 const logger = NODE_ENV === "production"
     ? loggerDev
@@ -17,10 +18,12 @@ const transporter = nodemailer.createTransport({
         pass: GMAIL_PASSWORD
     }
 });
-const receptor = "litire2691@sopulit.com"
+
+const receptor = "i.rolonmarecos@gmail.com"
 
 async function envioMail (usuario) {
     try {
+        
         const info = await transporter.sendMail({
             to: receptor,
             from: EMAIL,
@@ -40,7 +43,8 @@ const enviarOrden = async (pedido) => {
             to: receptor,
             from: EMAIL,
             subject: "Nueva orden Registrada",
-            text: ` Su orden ha sido realizada, a continuacion podra ver su pedido:  ${pedido}`
+            text: ` Su orden ha sido realizada, a continuacion podra ver el detalle de la orden del pedido:  
+            ${pedido}`
         });
         logger.log('info', "Correo de orden enviado satisfactoriamente");
 

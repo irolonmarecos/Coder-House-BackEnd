@@ -14,7 +14,7 @@ const {
 const {
     loggerDev,
     loggerProd
-} = require('../../../logger_config')
+} = require('../../Utils/logger_config')
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -75,7 +75,6 @@ async function connectionPassport() {
             telefono,
             avatar
         });
-        console.log(newUser);
         await newUser.save();
         return done(null, newUser); 
     }))

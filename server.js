@@ -20,10 +20,6 @@ const mongoOptions = {
     useUnifiedTopology: true
 }
 
-const {
-    envioMail,
-    enviarOrden
-} = require('./src/Utils/nodeMailer')
 
 const {
     objeto,
@@ -40,7 +36,6 @@ const hbs = require('./src/views/config/hbs')
 const {
     mensaje
 } = require('./src/schema/mensajes')
-const MensajeMongo = require('./src/DAOs/mensajes')
 const factory = require('./src/DAOs/factory')
 const msjDAO = factory.mensajesDAO()
 const connection = require('./src/dataBase');
@@ -48,7 +43,7 @@ const connectionPassport = require('./src/middleware/passport/index')
 const {
     loggerDev,
     loggerProd
-} = require('./logger_config')
+} = require('./src/Utils/logger_config')
 const NODE_ENV = process.env.NODE_ENV || "development";
 const logger = NODE_ENV === "production" ?
     loggerDev :
@@ -62,6 +57,7 @@ const routerSignup = require('./src/routes/signup')
 const routerLogout = require('./src/routes/logout')
 const routerCarrito = require('./src/routes/carrito')
 const routerOrden = require('./src/routes/orden')
+const routerChat = require('./src/routes/chat')
 
 connection()
 connectionPassport()
@@ -95,6 +91,7 @@ app.use('/carrito', routerCarrito)
 app.use('/login', routerLogin)
 app.use('/signup', routerSignup)
 app.use('/logout', routerLogout)
+app.use('/chat', routerChat)
 
 
 //PAGINA INICIO
@@ -109,10 +106,15 @@ socketServer.on('connection', async (socket) => {
     socket.on(events.ENVIAR_MENSAJE, async (msg) => {
         const MENSAJE = new mensaje(msg)
         const result = await msjDAO.save(MENSAJE)
+        console.log(result);
         socketServer.sockets.emit(events.NUEVO_MENSAJE, msg)
     })
-    const pesoNormMsjs = JSON.stringify(totalMensajes).length / 1024
-    socketServer.sockets.emit('porcentaje', totalMensajes, pesoNormMsjs)
+    if(totalMensajes == undefined){
+        return socketServer.sockets.emit('prueba', totalMensajes)
+    } else{
+        const pesoNormMsjs = JSON.stringify(totalMensajes).length / 1024
+        return socketServer.sockets.emit('porcentaje', totalMensajes, pesoNormMsjs)
+    }
 })
 
 const server = httpServer.listen(objeto.p, () => {
