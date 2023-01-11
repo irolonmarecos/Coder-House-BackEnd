@@ -1,12 +1,13 @@
 const path = require('path')
 
 function paginaLogin(req, res) {
-    res.sendFile(path.join(__dirname, '../', 'public', 'login.html'))
+    res.send('Ingrese credenciales para iniciar sesion')
 }
 
 function postLogin(req, res) {
     req.session.user = req.user;
-    res.redirect('/')
+    const username = req.session.user.username
+    res.send(`Sesion iniciada ${username}`)
 
 }
 

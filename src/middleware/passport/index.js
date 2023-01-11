@@ -49,7 +49,6 @@ async function connectionPassport() {
         usernameField: 'username',
         passwordField: 'password'
     }, async (req, username, password, done) => {
-        console.log(Users);
         const user = await Users.findOne({
             username
         })

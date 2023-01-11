@@ -37,9 +37,13 @@ async function postMensajes (req,res){
 }
 
 async function chatByMail(req,res) {
-    const email = req.params.email
-    const mensajes = await msjDAO.getByEmail(email)
-    res.send(mensajes)
+    try{
+        const email = req.params.email
+        const mensajes = await msjDAO.getByEmail(email)
+        res.send(mensajes)
+    }catch(err){
+        logger.log("warn", `ERROR AL BUSCAR EL EMAIL DEL USUARIO EL: ${err}`)
+    }
 }
 
 

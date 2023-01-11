@@ -8,9 +8,7 @@ function cerrarSesion(req,res) {
     let usuario = req.session.user
     if(usuario){
         req.session.destroy();
-        res.render('./partials/logout',{
-         usuario: usuario
-    })
+        res.send(`El usuario ${usuario.username} ha cerrado sesion`)
     }else{
         res.redirect('/')
     }
